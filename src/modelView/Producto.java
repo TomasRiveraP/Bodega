@@ -6,10 +6,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Producto {
-    final String tabla = "estudiante";
-    private int id;
-    private String nombre;
-    private double precio;
+    final String tabla = "pedidos";
+    private final int id;
+    private final String nombre;
+    private final double precio;
     private int cantidad;
 
     public Producto(int id, String nombre, double precio, int cantidad) {

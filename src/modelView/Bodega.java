@@ -1,17 +1,12 @@
 package modelView;
 
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import model.SQLconection;
 import view.FormularioBod;
 import view.FormularioTra;
 
 public class Bodega {
-    ///conexion con sql
-    private static java.sql.Connection con;
     public static String driver  = "com.mysql.cj.jdbc.Driver";
     public static String user = "root";
     public static String pass = "";
@@ -27,6 +22,8 @@ public class Bodega {
     
     public static Bodeg inventario = new Bodeg(sqlConnection.getConnection());
     
+    public Bodega(Connection connection){
+    }
     public static void vTrabajador() {
         Trab.setVisible(true);
     }
@@ -46,7 +43,7 @@ public class Bodega {
         
         if (sqlConnection.getConnection() != null) {
             
-            Bodeg inventario = new Bodeg(sqlConnection.getConnection());
+            ///Bodeg inventario = new Bodeg(sqlConnection.getConnection());
             inventario.agregarProducto(new Producto(1, "Hamburguesa", 9, 10));
             inventario.agregarProducto(new Producto(2, "Perro", 9, 10));
             inventario.agregarProducto(new Producto(3, "Empanada", 9, 10));

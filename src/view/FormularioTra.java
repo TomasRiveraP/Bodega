@@ -116,9 +116,9 @@ public class FormularioTra extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Cant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(Agregar)
-                .addGap(32, 32, 32))
+                .addGap(34, 34, 34))
         );
 
         jTabbedPane1.addTab("Agregar Stock", jPanel1);
@@ -284,14 +284,18 @@ public class FormularioTra extends javax.swing.JFrame {
     }//GEN-LAST:event_VenderActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-        String id = Id.getText();
-        int idi = Integer.parseInt(id);
-        String cant = Cant.getText();
-        int canti = Integer.parseInt(cant);
-        if (idi > 0 && canti > 0) {
+        try{
+            String id = Id.getText();
+            int idi = Integer.parseInt(id);
+            String cant = Cant.getText();
+            int canti = Integer.parseInt(cant);
+            if (idi > 0 && canti > 0) {
             Producto producto = Bodeg.obtenerProducto(idi);
             producto.agregarStock(canti, sqlConnection.getConnection()); // Llama al método y pasa la conexión
-            JOptionPane.showMessageDialog(null, "Stock Actualizado, revisa el inventario");
+            JOptionPane.showMessageDialog(rootPane, "Stock Actualizado, revisa el inventario");
+        }
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(rootPane, "Error de dato");
         }
     }//GEN-LAST:event_AgregarActionPerformed
 

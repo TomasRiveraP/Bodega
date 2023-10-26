@@ -7,12 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Bodeg extends Bodega{
-    private static Map<Integer, Producto> inventario = new HashMap<>();   
-    private Connection connection;
-   
+    private static Map<Integer, Producto> inventario;
+
     public Bodeg(Connection connection) {
-        this.connection = connection;
-        inventario = new HashMap<>();
+        super(connection);  // Llama al constructor de la clase base (Bodega)
+        this.inventario = new HashMap<>();
     }
     
     public void agregarProducto(Producto producto) {
