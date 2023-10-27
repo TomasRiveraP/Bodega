@@ -5,18 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class Producto {
+public class Producto extends ProductoAbst {
     final String tabla = "pedidos";
-    private final int id;
-    private final String nombre;
-    private final double precio;
-    private int cantidad;
-
+    
     public Producto(int id, String nombre, double precio, int cantidad) {
-        this.id = id;
-        this.nombre = nombre;
-        this.precio = precio;
-        this.cantidad = cantidad;
+        super(id, nombre, precio, cantidad);
     }
 
     public int getId() {
@@ -35,29 +28,11 @@ public class Producto {
         return cantidad;
     }
 
+    @Override
     public void agregarStock(int cantidad, Connection connection) {
-    this.cantidad += cantidad;
-    
-    // Actualiza la cantidad en la base de datos SQL
-    if (connection != null) {
-        try {
-            String updateQuery = "UPDATE pedidos SET cantidad = ? WHERE id = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
-            preparedStatement.setInt(1, this.cantidad);
-            preparedStatement.setInt(2, this.id);
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-        } catch (SQLException e) {
-            System.err.println("Error al actualizar la cantidad en la base de datos: " + e.getMessage());
-        }
-    }
-}
+        this.cantidad += cantidad;
 
-    public void vender(int cantidad, Connection connection) {
-    if (cantidad <= this.cantidad) {
-        this.cantidad -= cantidad;
-
-        // Actualiza la cantidad en la base de datos SQL
+        // Implementa la lógica para actualizar la cantidad en la base de datos SQL
         if (connection != null) {
             try {
                 String updateQuery = "UPDATE pedidos SET cantidad = ? WHERE id = ?";
@@ -70,10 +45,30 @@ public class Producto {
                 System.err.println("Error al actualizar la cantidad en la base de datos: " + e.getMessage());
             }
         }
-    } else {
-        System.out.println("No hay suficiente stock disponible.");
     }
-}
+
+    @Override
+    public void vender(int cantidad, Connection connection) {
+        if (cantidad <= this.cantidad) {
+            this.cantidad -= cantidad;
+
+            // Implementa la lógica para actualizar la cantidad en la base de datos SQL
+            if (connection != null) {
+                try {
+                    String updateQuery = "UPDATE pedidos SET cantidad = ? WHERE id = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
+                    preparedStatement.setInt(1, this.cantidad);
+                    preparedStatement.setInt(2, this.id);
+                    preparedStatement.executeUpdate();
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    System.err.println("Error al actualizar la cantidad en la base de datos: " + e.getMessage());
+                }
+            }
+        } else {
+            System.out.println("No hay suficiente stock disponible.");
+        }
+    }
 
     @Override
     public String toString() {

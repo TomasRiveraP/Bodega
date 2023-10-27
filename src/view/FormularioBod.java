@@ -1,18 +1,8 @@
 
 package view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import javax.swing.JTextField;
-import modelView.*;
-import modelView.Bodeg;
 import modelView.Bodega;
 import modelView.Producto;
-import modelView.Trabajador;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
@@ -65,6 +55,7 @@ public class FormularioBod extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(5, 5, 5, 5));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
         setSize(new java.awt.Dimension(0, 0));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -211,8 +202,7 @@ public class FormularioBod extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mInvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mInvActionPerformed
-        jTextArea2.setText("");
-        
+        jTextArea2.setText("");       
         jTextArea2.append("Productos Disponibles \n ");
         jTextArea2.append(" \n ");
         Map<Integer, Producto> inventario = Bodega.inventario.mostrarProductos();
@@ -230,14 +220,14 @@ public class FormularioBod extends javax.swing.JFrame {
         String contrasenaIngresadaStr = new String(contrasenaIngresada);
         if(usuarioIngresado.equals(Bodega.USUARIO_VALIDO) && contrasenaIngresadaStr.equals(Bodega.CONTRASENA_VALIDA) ){
             Bodega.vTrabajador();
-            JOptionPane.showMessageDialog(null, "Bienvenido, " + usuarioIngresado + "!");
+            JOptionPane.showMessageDialog(rootPane, "Bienvenido, " + usuarioIngresado + "!");
         }else{
-            JOptionPane.showMessageDialog(null, "Credenciales incorrectas. Acceso denegado.");
+            JOptionPane.showMessageDialog(rootPane, "Credenciales incorrectas. Acceso denegado.");
         }
     }//GEN-LAST:event_IngresoActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
-        ///Bodega.cerrar();
+        JOptionPane.showMessageDialog(rootPane, "Saliendo de la bodega.");
         dispose();
         System.exit(0);
     }//GEN-LAST:event_SalirActionPerformed

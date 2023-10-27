@@ -3,6 +3,8 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 
 public class SQLconection {
     private Connection connection;
@@ -10,10 +12,9 @@ public class SQLconection {
     public SQLconection(String url, String user, String password) {
         try {
             connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexión a la base de datos exitosa.");
+            JOptionPane.showMessageDialog(null, "Conexión exitosa a la bodega");
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.err.println("Error en la conexión a la base de datos: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "No se ha podido conectar a la bodaga, habilita el acceso");
         }
     }
 

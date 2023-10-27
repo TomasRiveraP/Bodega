@@ -1,17 +1,8 @@
 package view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import javax.swing.JTextField;
-import modelView.*;
 import modelView.Bodeg;
 import modelView.Bodega;
 import modelView.Producto;
-import modelView.Trabajador;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import static modelView.Bodega.sqlConnection;
@@ -270,31 +261,43 @@ public class FormularioTra extends javax.swing.JFrame {
     }//GEN-LAST:event_mInvActionPerformed
 
     private void VenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VenderActionPerformed
-        String idv = IdV.getText();
-        int idiv = Integer.parseInt(idv);
-        String cantv = CantV.getText();
-        int cantiv = Integer.parseInt(cantv);
-        Producto productoVender = Bodeg.obtenerProducto(idiv);
-        if (cantiv <= productoVender.getCantidad()) {
-            productoVender.vender(cantiv, sqlConnection.getConnection()); // Llama al método y pasa la conexión
-            JOptionPane.showMessageDialog(null, "Producto vendido, han salido " + cantiv + " productos del stock");
-        } else {
-            JOptionPane.showMessageDialog(null, "Stock insuficiente");
+        try {
+            String idv = IdV.getText();
+            int idiv = Integer.parseInt(idv);
+            String cantv = CantV.getText();
+            int cantiv = Integer.parseInt(cantv);
+            Producto productoVender = Bodeg.obtenerProducto(idiv);
+            if (Bodega.inventario.existeProducto(idiv)) {
+                if (cantiv <= productoVender.getCantidad()) {
+                    productoVender.vender(cantiv, sqlConnection.getConnection()); // Llama al método y pasa la conexión
+                    JOptionPane.showMessageDialog(rootPane, "Producto vendido, han salido " + cantiv + " productos del stock");
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Stock insuficiente");
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Producto no encontrado en la bodega.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(rootPane, "Error de dato");
         }
     }//GEN-LAST:event_VenderActionPerformed
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-        try{
+        try {
             String id = Id.getText();
             int idi = Integer.parseInt(id);
             String cant = Cant.getText();
             int canti = Integer.parseInt(cant);
-            if (idi > 0 && canti > 0) {
-            Producto producto = Bodeg.obtenerProducto(idi);
-            producto.agregarStock(canti, sqlConnection.getConnection()); // Llama al método y pasa la conexión
-            JOptionPane.showMessageDialog(rootPane, "Stock Actualizado, revisa el inventario");
-        }
-        }catch(NumberFormatException e){
+            if (Bodega.inventario.existeProducto(idi)){                          
+                if (idi > 0 && canti > 0) {
+                    Producto producto = Bodeg.obtenerProducto(idi);
+                    producto.agregarStock(canti, sqlConnection.getConnection()); // Llama al método y pasa la conexión
+                    JOptionPane.showMessageDialog(rootPane, "Stock Actualizado, revisa el inventario");
+                }
+            }else {
+                JOptionPane.showMessageDialog(rootPane, "Producto no encontrado en la bodega.");
+            }
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(rootPane, "Error de dato");
         }
     }//GEN-LAST:event_AgregarActionPerformed
@@ -304,6 +307,7 @@ public class FormularioTra extends javax.swing.JFrame {
     }//GEN-LAST:event_IdVActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Hasta pronto");
         Bodega.cerrarT();
     }//GEN-LAST:event_SalirActionPerformed
 
