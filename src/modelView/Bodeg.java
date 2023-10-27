@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class Bodeg extends Bodega { ///hereda, superclase Bodega, subClase bodeg
 
-    private static Map<Integer, Producto> inventario;
+    private static Map<Integer, Producto> inventario; ///Agregacion
 
     public Bodeg(Connection connection) {
         super(connection);  
@@ -16,7 +16,7 @@ public class Bodeg extends Bodega { ///hereda, superclase Bodega, subClase bodeg
     }
 
     public void agregarProducto(Producto producto) {
-        inventario.put(producto.getId(), producto);
+        inventario.put(producto.getId(), producto); ///Agregacion
     }
 
     public static Producto obtenerProducto(int id) {
@@ -45,7 +45,7 @@ public class Bodeg extends Bodega { ///hereda, superclase Bodega, subClase bodeg
         Producto productoVender = obtenerProducto(id);
         if (productoVender != null) {
             if (cantidad <= productoVender.getCantidad()) {
-                productoVender.vender(cantidad, sqlConnection.getConnection());
+                productoVender.vender(cantidad, sqlConnection.getConnection()); ///Composicion
                 System.out.println("Venta realizada con exito.");
             } else {
                 System.out.println("No hay suficiente stock disponible.");
