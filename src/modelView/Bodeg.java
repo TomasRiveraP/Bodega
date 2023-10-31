@@ -11,7 +11,7 @@ public class Bodeg extends Bodega { ///hereda, superclase Bodega, subClase bodeg
     private static Map<Integer, Producto> inventario; ///Agregacion
 
     public Bodeg(Connection connection) {
-        super(connection);  
+        super(connection);  /// Bodega
         Bodeg.inventario = new HashMap<>();
     }
 
@@ -28,8 +28,6 @@ public class Bodeg extends Bodega { ///hereda, superclase Bodega, subClase bodeg
         if (producto != null) {
             producto.agregarStock(cantidad, sqlConnection.getConnection());
             inventario.put(id, producto);
-        } else {
-
         }
         return inventario;
     }
@@ -45,14 +43,9 @@ public class Bodeg extends Bodega { ///hereda, superclase Bodega, subClase bodeg
         Producto productoVender = obtenerProducto(id);
         if (productoVender != null) {
             if (cantidad <= productoVender.getCantidad()) {
-                productoVender.vender(cantidad, sqlConnection.getConnection()); ///Composicion
-                System.out.println("Venta realizada con exito.");
-            } else {
-                System.out.println("No hay suficiente stock disponible.");
-            }
-        } else {
-            System.out.println("Producto no encontrado en la bodega.");
-        }
+                productoVender.vender(cantidad, sqlConnection.getConnection()); ///Composicion 
+            } 
+        } 
         return inventario;
     }
     

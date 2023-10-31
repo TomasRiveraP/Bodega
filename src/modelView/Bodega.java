@@ -18,9 +18,9 @@ public class Bodega {
     static FormularioBod Bodega = new FormularioBod();
     static FormularioTra Trab = new FormularioTra();
     
-    public static final SQLconection sqlConnection = new SQLconection(url, user, pass);
+    public static final SQLconection sqlConnection = new SQLconection(url, user, pass); ///Agregacion
     
-    public static Bodeg inventario = new Bodeg(sqlConnection.getConnection());
+    public static Bodeg inventario = new Bodeg(sqlConnection.getConnection()); ///Agregacion
     
     public Bodega(Connection connection){
     }

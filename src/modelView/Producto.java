@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class Producto extends ProductoAbst {
+public class Producto extends Abst {
     final String tabla = "pedidos";
     
     public Producto(int id, String nombre, double precio, int cantidad) {
